@@ -1,0 +1,20 @@
+{
+    "name": "node-red-contrib-apple-tv",
+    "version": "0.0.0",
+    "description": "A light wrapper around node-appletv to send commands to Apple TV from Node Red.",
+    "keywords": [
+        "node-red"
+    ],
+    "author": "Alan Reader",
+    "license": "MIT",
+    "node-red": {
+        "nodes": {
+            "atv-config": "config/atv-config.js",
+            "atv-input": "input/atv-input.js"
+        }
+    },
+    "dependencies": {
+        "node-appletv": "^1.0.10"
+    },
+    "devDependencies": {}
+}

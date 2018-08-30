@@ -1,0 +1,45 @@
+<script type="text/javascript">
+    RED.nodes.registerType('atv-input', {
+        category: 'advanced',
+        color: '#C0C0C0',
+        defaults: {
+            name: { value: "" },
+            atvSettings: {type:"atv-config", required:true}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "apple-touch-icon.png",
+        label: function() {
+            return "ATV input";
+        },
+        paletteLabel: "ATV input"
+    });
+</script>
+
+<script type="text/x-red" data-template-name="atv-input">
+    <div class="form-row">
+        <label>Config</label>
+        <input type="text" id="node-input-atvSettings">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="atv-input">
+    <p>A very simple node that takes the following commands as a string on msg.payload</p>
+    <ul>
+    <li>Menu</li>
+    <li>Select</li>
+    <li>Play</li>
+    <li>Pause</li>
+    <li>Up</li>
+    <li>Down</li>
+    <li>Left</li>
+    <li>Right</li>
+    <li>Next</li>
+    <li>Previous</li>
+    <li>Suspend</li>
+    </ul>
+</script>

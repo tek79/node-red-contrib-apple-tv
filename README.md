@@ -5,6 +5,9 @@ A light wrapper around [node-appletv](https://github.com/edc1591/node-appletv) b
 
 Relatively straightforward, simply drag a ATV input onto the canvas, configure the Apple TV (pairing), and you're ready to roll.
 
+### Installation
+The library this node wraps has some rather heavy dependencies, and so may take some time to install. Please refer to [node-appletv](https://github.com/edc1591/node-appletv) for more information about its package and dependencies.
+
 ### Pairing
 -   Drag ATV input onto the canvas and select 'Add new configuration...'
 -   Once the config editor loads, wait until a list of Apple TV devices on your network appear in the dropdown (currently it'll show nothing until the list arrives - around 10 seconds)

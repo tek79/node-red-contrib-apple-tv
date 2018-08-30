@@ -6,6 +6,7 @@
         "node-red"
     ],
     "author": "Alan Reader",
+    "repository": "github:readeral/node-red-contrib-apple-tv",
     "license": "MIT",
     "node-red": {
         "nodes": {
@@ -15,6 +16,5 @@
     },
     "dependencies": {
         "node-appletv": "^1.0.10"
-    },
-    "devDependencies": {}
+    }
 }

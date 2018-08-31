@@ -1,38 +1,68 @@
+<style>
+.isDisabled {
+  color: currentColor;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+</style>
+
 <script type="text/javascript">
     RED.nodes.registerType('atv-config',{
         category: 'config',
         defaults: {
             name: {value: ""},
             appletv: {value: ""},
-            pin: {value: ""},
             appleTVkey: {value: "", required: true}
         },
         label: function() {
             return this.name;
         },
         oneditprepare: function() {
-          $.get('atv/retrieve/')
+          var dropDown = document.getElementById("node-config-input-appletv");
+          var initial = document.createElement("option");
+          initial.value = "search";
+          initial.text = "Finding Apple TVs on network...";
+          dropDown.add(initial)
+          $.get('atv/discover/')
             .done( function(data) {
-              var dropDown = document.getElementById("node-config-input-appletv");
-              data.forEach( item => {
-                var element = document.createElement("option");
-                element.text = item.name;
-                element.value = item.uid;
-                dropDown.add(element);
-              });
+              dropDown.remove(0)
+              if (data.length <= 0) {
+                var failure = document.createElement("option");
+                failure.text = "No Apple TVs found"
+                dropDown.add(failure)
+              } else {
+                var choose = document.createElement("option");
+                choose.text = "Select an Apple TV";
+                choose.value = "";
+                choose.selected = "true"
+                dropDown.add(choose)
+                data.forEach( item => {
+                  var element = document.createElement("option");
+                  element.text = item.name;
+                  element.value = item.uid;
+                  dropDown.add(element);
+                });
+              }
             })
+          document.getElementById('node-config-input-appletv').addEventListener('change', function() {
+            document.getElementById('node-config-input-scan').className = "editor-button";
+          });
           document.getElementById('node-config-input-scan').addEventListener('click', function() {
             var chosen = document.getElementById("node-config-input-appletv").value;
             $.get('atv/pair/'+chosen)
               .done( function(data) {
+                $("node-config-input-name").val(chosen);
                 $('#node-config-input-appleTVkey').val(data);
               })
             .fail(function() {
+                $("node-config-input-name").val(chosen);
       					RED.notify("Something went wrong. Please retry.", "error");
       			});
           })
           document.getElementById('node-config-input-pinButton').addEventListener('click', function() {
-            $.post('atv/postPin', { pin: document.getElementById('node-config-input-pin').value })
+            if (document.getElementById('node-config-input-pin').value > 999 && document.getElementById('node-config-input-pin').value < 10000) {
+              $.post('atv/postPin', { pin: document.getElementById('node-config-input-pin').value })
+            }
           })
         }
     });
@@ -44,15 +74,27 @@
         <input type="text" id="node-config-input-name">
     </div>
     <div class="form-row">
-        <label><i class="icon-tag"></i> Apple TV (bonjour)</label>
-        <select id="node-config-input-appletv" style="width: 60%;"></select><a id="node-config-input-scan" class="editor-button"><i class="fa fa-search"></i></a>
+        <label><i class="fa fa-tv"></i> Apple TV</label>
+        <select id="node-config-input-appletv"></select>
     </div>
     <div class="form-row">
-        <label><i class="icon-tag"></i>Pairing pin</label>
-        <input type="text" id="node-config-input-pin" style="width: 60%;"></select><a id="node-config-input-pinButton" class="editor-button"><i class="fa fa-search"></i></a>
+        <label>
+          <i class="fa fa-retweet"></i>
+          Pairing
+        </label>
+        <a id="node-config-input-scan" class="editor-button isDisabled" title="Select an Apple TV above">
+          Initiate connection
+        </a>
+        <label style="width: 18px; margin-left: 10px;">
+          Pin:
+        </label>
+        <input type="number" id="node-config-input-pin" min="1000" max="9999" style="width: 70px; font-size: 20px; margin-left: 10px;">
+        <a id="node-config-input-pinButton" style="border: none; margin-top: -5px; vertical-align: middle; border-radius: 5px; padding: 0; margin-left: 10px;" class="editor-button">
+          <i class="fa fa-check-square fa-3x"></i>
+        </a>
     </div>
     <div class="form-row">
-			<label><i class="fa fa-key"></i> Apple TV key string</label>
+			<label><i class="fa fa-key"></i> Paired key</label>
 			<input type="text" id="node-config-input-appleTVkey" />
 	</div>
 </script>
@@ -62,10 +104,10 @@
     <h4>Usage</h4>
     <ol>
     <li>Wait until a list of Apple TV devices on your network appear in the dropdown</li>
-    <li>Select your device from the dropdown and click the button to the right</li>
-    <li>Once the pairing code appears on your Apple TV, enter it in the Pairing Pin field and press the submit button to the right</li>
+    <li>Select your device from the dropdown and click "Initiate connection"</li>
+    <li>Once the pairing code appears on your Apple TV, enter it in the Pin field and press the submit button to the right</li>
     <li>On a successful pairing, a string will appear in the Apple TV key string</li>
     <li>Save and deploy</li>
     <li>The ATV input node can now take commands as listed in the node help</li>
-    </ul>
+    </ol>
 </script>

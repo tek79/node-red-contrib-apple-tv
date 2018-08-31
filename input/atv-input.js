@@ -13,9 +13,15 @@ module.exports = function(RED) {
     let uniqueIdentifier = atvSettings.uniqueIdentifier;
 
     var TV;
+    node.status({fill:"yellow",shape:"ring",text:`Connecting to ${atvSettings.name}...`});
     atv.scan(uniqueIdentifier).then(devices => {
-      TV = devices[0];
-      return TV.openConnection(credentials);
+      if (devices.length <= 0) {
+        node.status({fill:"red",shape:"ring",text:`${atvSettings.name} not found.`});
+      } else {
+        TV = devices[0];
+        return TV.openConnection(credentials);
+        node.status({fill:"green",shape:"dot",text:`${atvSettings.name} connected.`});
+      }
     })
 
     node.on('input', function(msg) {

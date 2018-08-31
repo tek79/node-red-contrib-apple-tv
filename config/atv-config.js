@@ -13,6 +13,19 @@ module.exports = function(RED) {
   }
   RED.nodes.registerType("atv-config",atvSettings);
   // DISCOVER ATVs ON LOCAL NETWORK
+  RED.httpAdmin.get('/atv/discover', RED.auth.needsPermission("atv-config.read"), function(req, res, next) {
+    return atv.scan()
+    .then(devices => {
+      var options = devices.map(device => {
+        mapped = {name: device.name, uid: device.uid}
+        return mapped
+      })
+      return options;
+    })
+    .then(options => {
+      res.send(options);
+    })
+  });
 	RED.httpAdmin.get('/atv/pair/:uid', RED.auth.needsPermission("atv-config.read"), function(req, res, next) {
     return atv.scan(req.params.uid)
     .then(devices => {
@@ -53,19 +66,6 @@ module.exports = function(RED) {
         console.log(error);
     });
 	});
-  RED.httpAdmin.get('/atv/retrieve', RED.auth.needsPermission("atv-config.read"), function(req, res, next) {
-    return atv.scan()
-    .then(devices => {
-      var options = devices.map(device => {
-        mapped = {name: device.name, uid: device.uid}
-        return mapped
-      })
-      return options;
-    })
-    .then(options => {
-      res.send(options);
-    })
-  });
   RED.httpAdmin.post('/atv/postPin', RED.auth.needsPermission("atv-config.read"), function(req, res, next) {
     console.log(req.body);
     pin = req.body.pin;

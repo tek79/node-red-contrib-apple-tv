@@ -9,10 +9,10 @@ Relatively straightforward, simply drag a ATV input onto the canvas, configure t
 The library this node wraps has some rather heavy dependencies, and so may take some time to install. Please refer to [node-appletv](https://github.com/edc1591/node-appletv) for more information about its package and dependencies.
 
 ### Pairing
--   Drag ATV input onto the canvas and select 'Add new configuration...'
--   Once the config editor loads, wait until a list of Apple TV devices on your network appear in the dropdown (currently it'll show nothing until the list arrives - around 10 seconds)
--   Select your device from the dropdown and click the button to the right (looks like a magnifying glass)
--   Once the pairing code appears on your Apple TV, enter it in the Pairing Pin field and press the submit button to the right (also looks like a magnifying glass...)
+-   Drag ATV input onto the canvas and select 'Add new atv-config...'
+-   Once the config editor loads, wait until a list of Apple TV devices on your network appear in the dropdown
+-   Select your device from the dropdown and click "Initiate connection"
+-   Once the pairing code appears on your Apple TV, enter it in the Pin field and press the submit button to the right
 -   On a successful pairing, a string will appear in the Apple TV key string field
 -   Save and deploy
 -   The ATV input node can now take commands as listed in the ATV input node help (and listed below)

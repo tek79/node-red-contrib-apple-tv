@@ -19,8 +19,8 @@ module.exports = function(RED) {
         node.status({fill:"red",shape:"ring",text:`${atvSettings.name} not found.`});
       } else {
         TV = devices[0];
-        return TV.openConnection(credentials);
         node.status({fill:"green",shape:"dot",text:`${atvSettings.name} connected.`});
+        return TV.openConnection(credentials);
       }
     })
 

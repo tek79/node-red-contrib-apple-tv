@@ -1,7 +1,7 @@
 
 # node-red-contrib-apple-tv
 
-A light wrapper around [node-appletv](https://github.com/edc1591/node-appletv) by [Evan Coleman](https://github.com/edc1591) to send commands to Apple TV from Node Red.
+A light wrapper around [node-appletv](https://github.com/edc1591/node-appletv) by [Evan Coleman](https://github.com/edc1591) to send commands to Apple TV **(v4, the one with Touch Remote, and later)** from Node Red.
 
 Relatively straightforward, simply drag a ATV input onto the canvas, configure the Apple TV (pairing), and you're ready to roll.
 

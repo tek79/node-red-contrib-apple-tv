@@ -13,10 +13,10 @@ Installation on RPi3 requires a few extra packages depending on your platform. I
 I've only tested this library on Raspbian Stretch Lite, so some of these packages may already exist in a fuller installation.
 
 ```
-sudo apt-get install libtool autoconf build-essential
+sudo apt-get install libtool autoconf build-essential libavahi-compat-libdnssd-dev
 ```
 
-You'll also need to install openssl, which [according to this link](https://raspberrypi.stackexchange.com/questions/66782/how-to-install-openssl-1-0-2-on-raspberry-pi3?rq=1) is best compiled from source.
+You'll also need to install openssl which [according to this link](https://raspberrypi.stackexchange.com/questions/66782/how-to-install-openssl-1-0-2-on-raspberry-pi3?rq=1) is best compiled from source.
 ```
 git clone git://git.openssl.org/openssl.git
 cd openssl
@@ -26,7 +26,7 @@ make test
 sudo make install
 ```
 
-If you're having trouble with ed25519, re-install it in the root folder of your node-red.
+If you're having trouble with ed25519, mdns,  re-install it in the root folder of your node-red.
 
 ### Pairing
 -   Drag ATV input onto the canvas and select 'Add new atv-config...'

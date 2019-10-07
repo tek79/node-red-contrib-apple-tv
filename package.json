@@ -15,6 +15,6 @@
         }
     },
     "dependencies": {
-        "node-appletv": "^1.0.10"
+        "node-appletv": "tek79/node-appletv"
     }
 }
